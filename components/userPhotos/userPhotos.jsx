@@ -149,6 +149,10 @@ export default class UserPhotos extends React.Component {
                         <ThumbDownOutlined />
                       )}
                     </IconButton>
+                    <CommentDialog
+                      onCommentSubmit={this.handleCommentSubmit}
+                      photo_id={photo._id}
+                    />
                   </CardActions>
                   <CardContent>
                     {photo.comments && (
@@ -172,10 +176,6 @@ export default class UserPhotos extends React.Component {
                         </Typography>
                       </List>
                     ))}
-                    <CommentDialog
-                      onCommentSubmit={this.handleCommentSubmit}
-                      photo_id={photo._id}
-                    />
                   </CardContent>
                 </Card>
               </Grid>

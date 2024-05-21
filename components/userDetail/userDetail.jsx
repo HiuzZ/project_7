@@ -79,7 +79,7 @@ export default class UserDetail extends React.Component {
               {`${this.state.user.occupation}`}
             </Typography>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <Button
               size="large"
               to={this.state.user && `/photos/${this.state.user._id}`}
@@ -90,7 +90,6 @@ export default class UserDetail extends React.Component {
               See Photos
             </Button>
           </Grid>
-          <Grid item xs={4} />
         </Grid>
       );
     } else {

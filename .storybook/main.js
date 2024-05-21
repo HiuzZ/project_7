@@ -1,3 +1,5 @@
+// main.js
+
 module.exports = {
   "stories": [
     "../stories/**/*.stories.mdx",
