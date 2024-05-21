@@ -79,14 +79,13 @@ export default class UserDetail extends React.Component {
               {`${this.state.user.occupation}`}
             </Typography>
           </Grid>
-          <Grid item xs={4} />
           <Grid item xs={4}>
             <Button
               size="large"
               to={this.state.user && `/photos/${this.state.user._id}`}
               component={Link}
               variant="contained"
-              style={{ backgroundColor: "#f9bc60" }}
+              style={{ backgroundColor: "#ECB176" }}
             >
               See Photos
             </Button>

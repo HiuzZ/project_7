@@ -1,165 +1,160 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import {
-  List,
-  Divider,
-  Typography,
-  Grid,
-  Avatar,
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions,
-  IconButton,
+  List, Divider, Typography, Grid, Avatar, Card, CardHeader,
+  CardMedia, CardContent, CardActions, IconButton
 } from "@material-ui/core";
-import {
-  ThumbUpOutlined,
-} from "@material-ui/icons";
+import { ThumbUpOutlined, ThumbUp, ThumbDownOutlined, ThumbDown } from "@material-ui/icons";
 import "./userPhotos.css";
 import axios from "axios";
 import CommentDialog from "../commentDialog/commentDialog";
 
-/**
- * * Jian Zhong
- * Define UserPhotos, a React componment of CS142 project #5
- */
 export default class UserPhotos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       photos: null, // photos list where each photo contains comments list
       user: null, // Author who posts the photo
+      likedPhotos: JSON.parse(localStorage.getItem('likedPhotos')) || {}, // Load from local storage or initialize
+      dislikedPhotos: JSON.parse(localStorage.getItem('dislikedPhotos')) || {}, // Load from local storage or initialize
     };
   }
 
-  /**
-   * user axios to get photos data and photo's Author data
-   * from user ID
-   *  */
   axios_fetch_photos_and_user() {
-    // To get photo's Author data
-    axios
-      .get(`/user/${this.props.match.params.userId}`) // user url
+    axios.get(`/user/${this.props.match.params.userId}`)
       .then((response) => {
         this.setState({ user: response.data });
         this.props.onUserNameChange(
           response.data.first_name + " " + response.data.last_name
-        ); // handle TopBar user name change
+        );
         this.props.onLoginUserChange({
-          // handle page refresh
-          first_name: response.data.logged_user_first_name, // to know who is current logged user after refresh
+          first_name: response.data.logged_user_first_name,
         });
-        console.log("** UserPhotos: fetched User Photos **");
       })
       .catch((error) => console.log("/user/ Error: ", error));
 
-    // To get photo data
-    axios
-      .get(`/photosOfUser/${this.props.match.params.userId}`) // photo url
+    axios.get(`/photosOfUser/${this.props.match.params.userId}`)
       .then((response) => this.setState({ photos: response.data }))
       .catch((error) => console.log("/photosOfUser/ Error: ", error));
   }
 
-  /**
-   * To re-fetch data from server once comment is submitted,
-   * this will lead to update UI immediately once comment sent.
-   */
-  handleCommentSumbit = () => {
-    console.log("Submit was pressed, re-rendering photos and comments");
+  handleCommentSubmit = () => {
     this.axios_fetch_photos_and_user();
   };
 
-  /**
-   * To fetch photos and author data when click the "See Photo" button.
-   *  */
   componentDidMount() {
     this.axios_fetch_photos_and_user();
   }
 
-  /**
-   * To detect if a new photo is added, re-render if it was.
-   * @param this.props.photoIsUploaded: if a new photo was updated
-   */
   componentDidUpdate(prevProps) {
     if (
       prevProps.photoIsUploaded !== this.props.photoIsUploaded &&
       this.props.photoIsUploaded
     ) {
-      console.log("Trigger re-render");
       this.axios_fetch_photos_and_user();
     }
   }
 
-  /**
-   * Convert ISO format Date to a user friendly format
-   * @returns string
-   */
   static convertDate(isoDate) {
     const date = new Date(isoDate);
     const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
+      weekday: "long", year: "numeric", month: "long", day: "numeric",
+      hour: "numeric", minute: "numeric", second: "numeric",
     };
     return date.toLocaleDateString("en-US", options);
   }
 
+  handleLikeClick = (photoId) => {
+    this.setState((prevState) => {
+      const newLikedPhotos = {
+        ...prevState.likedPhotos,
+        [photoId]: !prevState.likedPhotos[photoId],
+      };
+      const newDislikedPhotos = {
+        ...prevState.dislikedPhotos,
+        [photoId]: false, // Ensure dislike is removed when liked
+      };
+      localStorage.setItem('likedPhotos', JSON.stringify(newLikedPhotos));
+      localStorage.setItem('dislikedPhotos', JSON.stringify(newDislikedPhotos));
+      return {
+        likedPhotos: newLikedPhotos,
+        dislikedPhotos: newDislikedPhotos
+      };
+    });
+  };
+
+  handleDislikeClick = (photoId) => {
+    this.setState((prevState) => {
+      const newDislikedPhotos = {
+        ...prevState.dislikedPhotos,
+        [photoId]: !prevState.dislikedPhotos[photoId],
+      };
+      const newLikedPhotos = {
+        ...prevState.likedPhotos,
+        [photoId]: false, // Ensure like is removed when disliked
+      };
+      localStorage.setItem('dislikedPhotos', JSON.stringify(newDislikedPhotos));
+      localStorage.setItem('likedPhotos', JSON.stringify(newLikedPhotos));
+      return {
+        dislikedPhotos: newDislikedPhotos,
+        likedPhotos: newLikedPhotos
+      };
+    });
+  };
+
   render() {
-    // * Note: need to add "|| !this.state.user || !this.state.photos",
-    // * so that after redirecting to another page, this.state.user and this.state.photos
-    // * won't be accessed on another page,
-    // * else it will cause unmount error in browser's console
     if (this.props.loginUser || !this.state.user || !this.state.photos) {
-      // If there is user photo, then display user photos
       return (
-        this.state.photos &&
-        this.state.user && (
-          <Grid container justifyContent="flex-start" spacing={3} >
-            {/* Loop through all the photos */}
+        this.state.photos && this.state.user && (
+          <Grid container justifyContent="flex-start" spacing={3}>
             {this.state.photos.map((photo) => (
-              // Each photo's layout
-              <Grid item xs={4} key={photo._id} >
-                <Card style={{ border: "3px solid black" }} >
-                  {/* Each photo's author name and author post time */}
+              <Grid item xs={6} key={photo._id}>
+                <Card style={{ border: "3px solid black", borderRadius: '10px' }}>
                   <CardHeader
-                    avatar={(
-                      <Avatar style={{ backgroundColor: "#FF7F50", border: "1px solid black" }}>
+                    avatar={
+                      <Avatar style={{ backgroundColor: "#ECB176", border: "1px solid black" }}>
                         {this.state.user.first_name[0]}
                       </Avatar>
-                    )}
-                    title={(
+                    }
+                    title={
                       <Link to={`/users/${this.state.user._id}`}>
                         <Typography>{`${this.state.user.first_name} ${this.state.user.last_name}`}</Typography>
                       </Link>
-                    )}
+                    }
                     subheader={photo.date_time}
                   />
-
-                  {/* Each photo's image */}
                   <CardMedia
                     component="img"
                     image={`./images/${photo.file_name}`}
-                    alt="Anthor Post"
+                    alt="Author Post"
                   />
-
                   <CardActions>
-                    <IconButton aria-label="like">
-                      <ThumbUpOutlined />
+                    <IconButton
+                      aria-label="like"
+                      onClick={() => this.handleLikeClick(photo._id)}
+                    >
+                      {this.state.likedPhotos[photo._id] ? (
+                        <ThumbUp style={{ color: "153448" }} />
+                      ) : (
+                        <ThumbUpOutlined />
+                      )}
+                    </IconButton>
+                    <IconButton
+                      aria-label="dislike"
+                      onClick={() => this.handleDislikeClick(photo._id)}
+                    >
+                      {this.state.dislikedPhotos[photo._id] ? (
+                        <ThumbDown style={{ color: "803D3B" }} />
+                      ) : (
+                        <ThumbDownOutlined />
+                      )}
                     </IconButton>
                   </CardActions>
-
-                  {/* Comments' layout */}
                   <CardContent>
-                    {/* Loop through all comments under the photo */}
                     {photo.comments && (
                       <Typography variant="subtitle1">
                         Comments:
-                        <Divider/>
+                        <Divider />
                       </Typography>
                     )}
                     {photo.comments.map((c) => (
@@ -169,22 +164,16 @@ export default class UserPhotos extends React.Component {
                             {`${c.user.first_name} ${c.user.last_name}`}
                           </Link>
                         </Typography>
-                        <Typography
-                          variant="caption"
-                          color="textSecondary"
-                          gutterBottom
-                        >
-                        {UserPhotos.convertDate(c.date_time)}
+                        <Typography variant="caption" color="textSecondary" gutterBottom>
+                          {UserPhotos.convertDate(c.date_time)}
                         </Typography>
                         <Typography variant="body1">
                           {`"${c.comment}"`}
                         </Typography>
                       </List>
                     ))}
-
-                    {/* Comment dialog box */}
                     <CommentDialog
-                      onCommentSumbit={this.handleCommentSumbit}
+                      onCommentSubmit={this.handleCommentSubmit}
                       photo_id={photo._id}
                     />
                   </CardContent>

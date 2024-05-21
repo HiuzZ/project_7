@@ -76,14 +76,14 @@ class PhotoShare extends React.Component {
 
             {/* Sidebar View */}
             <Grid item sm={3} >
-              <Paper className="side-bar" elevation={3} style={{ backgroundColor: "#abd1c6", margin: '3%', border: "4px solid black" }}>
+              <Paper className="side-bar" elevation={3} style={{ backgroundColor: "#FED8B1", margin: '3%', border: "3px solid black", borderRadius: '10px' }}>
                 <UserList loginUser={this.state.loginUser} />
               </Paper>
             </Grid>
 
             {/* Main View */}
             <Grid item sm={9} >
-              <Paper className="cs142-main-grid-item" elevation={3} style={{ backgroundColor: "#abd1c6", height: '100%', marginTop: '1%', marginRight: '2%', border: "4px solid black" }}>
+              <Paper className="cs142-main-grid-item" elevation={3} style={{ backgroundColor: "#FED8B1", height: '100%', marginTop: '1%', marginRight: '2%', border: "3px solid black", borderRadius: '10px' }}>
                 {/* ALl unauthorized visit would go to login page */}
                 <Switch>
                   {/* User detail View */}

@@ -4,7 +4,6 @@ import "./commentDialog.css";
 import axios from "axios";
 
 /**
- * * Jian Zhong
  * CommentDialog, a React componment of CS142 project #7
  * This component is for creating a comment dialog UI, 
  * send newly added comment to server,
@@ -42,7 +41,7 @@ export default class CommentDialog extends React.Component {
     render() {
       return (
         <div className="comment-dialog">
-          <Chip label="Reply" onClick={this.handleClickOpen} style={{ backgroundColor: "#abd1c6", border: "1px solid black" }} />
+          <Chip label="Reply" onClick={this.handleClickOpen} style={{ backgroundColor: "#AF8F6F", border: "1px solid black" }} />
           {/* onClose: when mouse click outside of the dialog box, then close the dialog */}
           <Dialog open={this.state.open} onClose={this.handleClickClose} >
             <DialogContent>

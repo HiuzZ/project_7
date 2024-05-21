@@ -121,20 +121,19 @@ class TopBar extends React.Component {
       <AppBar
         className="cs142-topbar-appBar"
         position="fixed"
-        style={{ backgroundColor: "#001e1d" }}
+        style={{ backgroundColor: "#543310" }}
       >
         <Toolbar>
           {/* App name and Version */}
           <Typography variant="h5" style={{ flexGrow: 1 }}>
-            Fakebook
-            {this.props.loginUser && ` ver: ${this.state.version}`}
+            Photo Sharing App
           </Typography>
 
           {/* Display greeting to Login User*/}
           <Typography variant="h5" style={{ flexGrow: 1 }}>
             {this.props.loginUser
-              ? `👋 Welcome back, ${this.props.loginUser.first_name}!`
-              : "😄 Please Login"}
+              ? `Hello ${this.props.loginUser.first_name}!`
+              : "Please Login"}
           </Typography>
 
           {/* Display viewing user's name */}

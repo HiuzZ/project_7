@@ -84,7 +84,7 @@ export default class UserList extends React.Component {
             to={`/users/${user._id}`} 
             component={Link} onClick={() => this.handleClick(index)}
             button
-            style={{ backgroundColor: this.state.selectedButtonIndex === index ? "#004643" : "",
+            style={{ backgroundColor: this.state.selectedButtonIndex === index ? "#6F4E37" : "",
              color: this.state.selectedButtonIndex === index ? "#ffff" : "" }}
            >
            {/* Selected style for button icons */}
