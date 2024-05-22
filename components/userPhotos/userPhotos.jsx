@@ -115,7 +115,7 @@ export default class UserPhotos extends React.Component {
           <Grid container justifyContent="flex-start" spacing={3}>
             {this.state.photos.map((photo) => (
               <Grid item xs={6} key={photo._id}>
-                <Card style={{ border: "3px solid black", borderRadius: '10px' }}>
+                <Card style={{ border: "3px solid black", borderRadius: '10px', backgroundColor:"#FFF2D7" }}>
                   <CardHeader
                     avatar={
                       <Avatar style={{ backgroundColor: "#ECB176", border: "1px solid black" }}>

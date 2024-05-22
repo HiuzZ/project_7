@@ -4,47 +4,34 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import "./userDetail.css";
 import axios from "axios";
 
-
-/**
- * * Jian Zhong
- * Define UserDetail, a React componment of CS142 project #5
- */
 export default class UserDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null, // to receive user detail data from server
+      user: null,
     };
   }
 
-  // Use Axios to send request and update the user state variable.
   axios_fetchData(url) {
     axios
       .get(url)
       .then(response => {
-        this.props.onUserNameChange( response.data.first_name + " " + response.data.last_name ); // handle TopBar user name change
-        // handle page refresh, project 7 extra credit
-        this.props.onLoginUserChange({      
-          first_name: response.data.logged_user_first_name, // to know who is current logged user after refresh
+        this.props.onUserNameChange(response.data.first_name + " " + response.data.last_name);
+        this.props.onLoginUserChange({
+          first_name: response.data.logged_user_first_name,
         });
-        this.setState({ user: response.data }); // to display user detail data
+        this.setState({ user: response.data });
         console.log("** UserDetail: fetched user detail **");
       })
-      .catch(error => {     // Handle error:
+      .catch(error => {
         console.log("** Error in UserDetail **\n", error.message);
       });
   }
-  
 
-  // load data when page first load or refresh the page, project 7 extra credit
   componentDidMount() {
     this.axios_fetchData(`/user/${this.props.match.params.userId}`);
   }
 
-  /**
-   * load data user click on different user list and show the user's detail
-   * * component is not re-rendering when the route changes, componentDidUpdate() can detect route changes.
-   */
   componentDidUpdate(prevProps) {
     const prevUserID = prevProps.match.params.userId;
     const currUserID = this.props.match.params.userId;
@@ -54,15 +41,10 @@ export default class UserDetail extends React.Component {
   }
 
   render() {
-    // * Note: need to add "|| !this.state.user" so that after 
-    // * redirecting to another page, this.state.user
-    // * won't be accessed on another page,
-    // * else it will cause unmount error in browser's console 
     if (this.props.loginUser || !this.state.user) {
       return this.state.user && (
-        <Grid container>
+        <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ backgroundColor: "#FFF2D7", padding: "20px", border: "3px solid black", borderRadius: "10px" }}>
           <Grid item xs={12}>
-            <Typography color="textSecondary">Name:</Typography>
             <Typography variant="h6" gutterBottom>
               {`${this.state.user.first_name} ${this.state.user.last_name}`}
             </Typography>
@@ -79,7 +61,7 @@ export default class UserDetail extends React.Component {
               {`${this.state.user.occupation}`}
             </Typography>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={12}>
             <Button
               size="large"
               to={this.state.user && `/photos/${this.state.user._id}`}
@@ -95,6 +77,5 @@ export default class UserDetail extends React.Component {
     } else {
       return <Redirect to={`/login-register`} />;
     }
-
   }
 }

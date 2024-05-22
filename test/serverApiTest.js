@@ -1,6 +1,6 @@
 'use strict';
 /*
- * Mocha test of cs142 Project #7 web API.  To run type
+ * Mocha test of Project #6 web API.  To run type
  *   node_modules/.bin/mocha serverApiTest.js
  */
 /* jshint node: true */

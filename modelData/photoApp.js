@@ -1,7 +1,7 @@
 "use strict";
 /* jshint node: true */
 /*
- * Model data for CS142 Project #5 - the photo sharing site.
+ * Model data for Project #5 - the photo sharing site.
  * This module returns an object called cs142Models with the following functions:
  *
  * cs142Models.userListModel - A function that returns the list of users on the system. The

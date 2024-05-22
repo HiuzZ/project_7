@@ -129,14 +129,14 @@ export default class LoginRegister extends React.Component {
        <FormControl fullWidth>
          <InputLabel htmlFor={id}>{inputLabel}</InputLabel>
          <Input
-           name={id}
-           id={id}
-           autoFocus={autoFocus}
-           autoComplete="on"
-           type={type}
-           value={value}
-           onChange={this.handleInputChange}
-           required={required}
+            name={id}
+            id={id}
+            autoFocus={autoFocus}
+            autoComplete="on"
+            type={type}
+            value={value}
+            onChange={this.handleInputChange}
+            required={required}
          />
        </FormControl>
      );
@@ -152,7 +152,7 @@ export default class LoginRegister extends React.Component {
 
     // else, show login page:
     return (
-      <Grid container >
+      <Grid container style={{ backgroundColor: "#FFF2D7", padding: "20px", border: "3px solid black", borderRadius: "10px" }}>
 
         {/* Login Form */}
         <Grid container item direction="column" alignItems="center" xs={6}>

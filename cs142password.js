@@ -1,5 +1,4 @@
 /**
- * * Jian Zhong: Project 7 Extra Credits
  * * Deal with  password salt and hashing
  */
 
