@@ -4,8 +4,7 @@ import axios from "axios";
 import { Typography, Grid, FormControl, InputLabel, Input, Button } from "@material-ui/core";
 
 /**
- * * Jian Zhong
- * * Project 7 codes for implementing LoginRegister component
+ * * Project 6 codes for implementing LoginRegister component
  */
 
 
@@ -211,7 +210,7 @@ export default class LoginRegister extends React.Component {
               </Button>
               <br/><br/>
               {this.state.registeredMessage && (
-                <Typography style={{ color: this.state.registeredMessage.includes("successfully") ? "green" : "red" }}>
+                <Typography style={{ color: this.state.registeredMessage.includes("successfully") ? "#3A4D39" : "#8B322C" }}>
                   {this.state.registeredMessage}
                 </Typography>
               )}

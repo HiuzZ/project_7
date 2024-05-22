@@ -34,7 +34,13 @@ export default class UserPhotos extends React.Component {
       .catch((error) => console.log("/user/ Error: ", error));
 
     axios.get(`/photosOfUser/${this.props.match.params.userId}`)
-      .then((response) => this.setState({ photos: response.data }))
+      // show the newest photo
+      .then((response) => {
+        const sortedPhotos = response.data.sort((a, b) => {
+          return new Date(b.date_time) - new Date(a.date_time);
+        });
+        this.setState({ photos: sortedPhotos });
+      })
       .catch((error) => console.log("/photosOfUser/ Error: ", error));
   }
 

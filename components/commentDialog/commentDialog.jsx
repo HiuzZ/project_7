@@ -13,7 +13,7 @@ import axios from "axios";
 import "./commentDialog.css";
 
 /**
- * CommentDialog, a React component of CS142 project #7
+ * CommentDialog, a React component of project #6
  * This component is for creating a comment dialog UI, 
  * sending newly added comments to the server,
  * notifying the upper level for the comment added,

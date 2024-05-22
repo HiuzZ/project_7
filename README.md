@@ -1,8 +1,3 @@
-## Install the MongoDB database
-``brew tap mongodb/brew``\
-``brew update``\
-``brew install mongodb-community@6.0``
-
 ## Store the MongoDB data's location to "<whoami>/mongodb"
 ``mongod --dbpath ~/mongodb``
 

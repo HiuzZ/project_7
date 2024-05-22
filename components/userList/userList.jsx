@@ -4,13 +4,12 @@ import { List, ListItem, ListItemText, ListItemIcon, Typography, Divider } from 
 import "./userList.css";
 import axios from "axios";
 import {
-  PersonOutlineOutlined,
-  Person,
+  AccountCircleOutlined, // Thay thế biểu tượng
+  AccountCircle, // Thay thế biểu tượng
 } from "@material-ui/icons";
 
 /**
- * * Jian Zhong
- * Define UserList, a React componment of CS142 project #5
+ * Define UserList, a React componment of project #5
  * Generate a list of items from users' names,
  * and link to user's detail when clicked
  */
@@ -23,7 +22,7 @@ export default class UserList extends React.Component {
     };
   }
   
-   // Use Axios to send request and update the users state variable. 
+  // Use Axios to send request and update the users state variable. 
   axios_fetchData() {
     axios
       .get("http://localhost:3000/user/list") // user list URL
@@ -90,8 +89,8 @@ export default class UserList extends React.Component {
            {/* Selected style for button icons */}
            {
              this.state.selectedButtonIndex === index ?
-             <ListItemIcon><Person fontSize="large" style={{ color: "#ffff" }}/></ListItemIcon> :
-             <ListItemIcon><PersonOutlineOutlined fontSize="large" /></ListItemIcon>
+             <ListItemIcon><AccountCircle fontSize="large" style={{ color: "#ffff" }}/></ListItemIcon> :
+             <ListItemIcon><AccountCircleOutlined fontSize="large" /></ListItemIcon>
            }
               <ListItemText primary={<Typography variant="h6">{`${user.first_name} ${user.last_name}`}</Typography>} />
           </ListItem>

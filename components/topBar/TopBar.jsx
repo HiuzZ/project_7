@@ -9,11 +9,11 @@ import {
 } from "@material-ui/core";
 import "./TopBar.css";
 import axios from "axios";
-import { CloudUpload, ExitToApp, AddAPhotoOutlined, CloseRounded } from "@material-ui/icons";
+import { CloudDone, PhotoCamera, Cancel } from "@material-ui/icons"; // Đã thay thế biểu tượng khác
 
 /**
  * * Jian Zhong
- * Define TopBar, a React componment of CS142 project #5
+ * Define TopBar, a React component of CS142 project #5
  */
 class TopBar extends React.Component {
   constructor(props) {
@@ -150,10 +150,10 @@ class TopBar extends React.Component {
             <form onSubmit={this.handlePhotoSubmit} style={{ flexGrow: 1 }}>
               <Button
                 component="label"
-                title="Add a pohto"
+                title="Add a photo"
                 style={{ color: "#f9bc60" }}
               >
-                <AddAPhotoOutlined fontSize="large" />
+                <PhotoCamera fontSize="large" />
                 <input
                   hidden
                   type="file"
@@ -164,16 +164,21 @@ class TopBar extends React.Component {
               {/* Show upload button only when image is selected */}
               {this.state.uploadInput && (
                 <IconButton type="submit">
-                  <CloudUpload style={{ color: "#fec7d7" }} fontSize="large" />
+                  <CloudDone style={{ color: "#fec7d7" }} fontSize="large" />
                 </IconButton>
               )}
             </form>
           )}
 
           {/* Log Out Button */}
-          <IconButton title="Log out your account" onClick={this.handleButtonClick} variant="contained" >
-            <ExitToApp style={{ color: "#e16162" }} fontSize="large" />
-          </IconButton>
+          <Button 
+            title="Log out your account" 
+            onClick={this.handleButtonClick} 
+            variant="contained" 
+            style={{ color: "#fff", backgroundColor: "#74512D" }} 
+          >
+            Logout
+          </Button>
 
           {/* to prompt user when already logged out */}
           <Snackbar
@@ -183,7 +188,7 @@ class TopBar extends React.Component {
             message="You are currently logged out."
             action={(
               <IconButton color="secondary" onClick={this.handleClose}>
-                <CloseRounded/>
+                <Cancel/>
               </IconButton>
             )}
           />
