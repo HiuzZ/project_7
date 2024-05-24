@@ -43,8 +43,9 @@ export default class UserDetail extends React.Component {
   render() {
     if (this.props.loginUser || !this.state.user) {
       return this.state.user && (
-        <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ backgroundColor: "#FFF2D7", padding: "20px", border: "3px solid black", borderRadius: "10px" }}>
+        <Grid container spacing={3} style={{ backgroundColor: "#FFF2D7", padding: "16px", border: "3px solid black", borderRadius: "10px" }}>
           <Grid item xs={12}>
+            <Typography color="textSecondary">Name:</Typography>
             <Typography variant="h6" gutterBottom>
               {`${this.state.user.first_name} ${this.state.user.last_name}`}
             </Typography>

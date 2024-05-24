@@ -123,8 +123,8 @@ export default class UserPhotos extends React.Component {
                       </Avatar>
                     }
                     title={
-                      <Link to={`/users/${this.state.user._id}`}>
-                        <Typography>{`${this.state.user.first_name} ${this.state.user.last_name}`}</Typography>
+                      <Link to={`/users/${this.state.user._id}`} style={{ textDecoration: 'none' }}>
+                        <Typography style={{ color: 'black' }}>{`${this.state.user.first_name} ${this.state.user.last_name}`}</Typography>
                       </Link>
                     }
                     subheader={photo.date_time}
@@ -170,8 +170,8 @@ export default class UserPhotos extends React.Component {
                     {photo.comments.map((c) => (
                       <List key={c._id}>
                         <Typography variant="subtitle2">
-                          <Link to={`/users/${c.user._id}`}>
-                            {`${c.user.first_name} ${c.user.last_name}`}
+                          <Link to={`/users/${c.user._id}`} style={{ textDecoration: 'none' }}>
+                          <Typography style={{ color: 'black' }}>{`${c.user.first_name} ${c.user.last_name}`}</Typography>
                           </Link>
                         </Typography>
                         <Typography variant="caption" color="textSecondary" gutterBottom>

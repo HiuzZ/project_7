@@ -9,11 +9,10 @@ import {
 } from "@material-ui/core";
 import "./TopBar.css";
 import axios from "axios";
-import { CloudDone, PhotoCamera, Cancel } from "@material-ui/icons"; // Đã thay thế biểu tượng khác
+import { CloudDone, AddAPhoto, Cancel } from "@material-ui/icons";
 
 /**
- * * Jian Zhong
- * Define TopBar, a React component of CS142 project #5
+ * Define TopBar, a React component of project #5
  */
 class TopBar extends React.Component {
   constructor(props) {
@@ -126,7 +125,7 @@ class TopBar extends React.Component {
         <Toolbar>
           {/* App name and Version */}
           <Typography variant="h5" style={{ flexGrow: 1 }}>
-            Photo Sharing App
+            Photo Sharing App 🥝
           </Typography>
 
           {/* Display greeting to Login User*/}
@@ -153,7 +152,7 @@ class TopBar extends React.Component {
                 title="Add a photo"
                 style={{ color: "#f9bc60" }}
               >
-                <PhotoCamera fontSize="large" />
+                <AddAPhoto fontSize="large" />
                 <input
                   hidden
                   type="file"

@@ -56,7 +56,7 @@ export default class CommentDialog extends React.Component {
         {/* onClose: when mouse click outside of the dialog box, then close the dialog */}
         <Dialog open={this.state.open} onClose={this.handleClickClose}>
           <DialogContent>
-            <DialogContentText>Add a comment...</DialogContentText>
+            <DialogContentText>Comment your thoughts about this photo</DialogContentText>
             <TextField
               value={this.state.comment}
               onChange={this.handleCommentChange}
